@@ -1,7 +1,15 @@
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import { Post } from '../interfaces/post';
 import moment from 'moment';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 interface PostsProps {
   posts: Post[];
@@ -18,8 +26,11 @@ const Posts = (props: PostsProps) => {
     <View style={styles.postsContainer}>
       <FlatList
         data={posts}
+        contentContainerStyle={{
+          paddingBottom: 200,
+        }}
         renderItem={({ item }) => (
-          <View>
+          <View style={styles.postContainer}>
             <View style={styles.postHeader}>
               <Image
                 style={styles.profileImage}
@@ -42,6 +53,39 @@ const Posts = (props: PostsProps) => {
                 {moment(item.createdAt).fromNow()}
               </Text>
             </View>
+            <View style={styles.postTextContentContainer}>
+              <Text style={styles.postText}>{item.previewData.title}</Text>
+            </View>
+            <View style={styles.footerContainer}>
+              <TouchableOpacity style={styles.metaContainer}>
+                <Ionicons name="heart-outline" size={16} color="#ADADAD" />
+                <Text style={styles.metaCountText}>
+                  {item.web3Preview.meta.likeCount}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.metaContainer}>
+                <Ionicons name="chatbubble-outline" size={16} color="#ADADAD" />
+                <Text style={styles.metaCountText}>
+                  {item.web3Preview.meta.replyCount}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.metaContainer}>
+                <Ionicons name="repeat-outline" size={16} color="#ADADAD" />
+                <Text style={styles.metaCountText}>
+                  {item.web3Preview.meta.replyCount}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.metaContainer}>
+                <Ionicons
+                  name="ellipsis-horizontal-outline"
+                  color="#ADADAD"
+                  size={16}
+                />
+                <Text style={styles.metaCountText}>
+                  {item.web3Preview.meta.replyCount}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       />
@@ -52,8 +96,15 @@ const Posts = (props: PostsProps) => {
 export default Posts;
 
 const styles = StyleSheet.create({
+  // header section
   postsContainer: {
-    paddingHorizontal: '5%',
+    marginVertical: 5,
+  },
+  postContainer: {
+    paddingHorizontal: '3%',
+    paddingVertical: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#E5E5E5',
   },
   postHeader: {
     flexDirection: 'row',
@@ -89,6 +140,26 @@ const styles = StyleSheet.create({
   },
   createdAt: {
     color: '#ADADAD',
+    fontSize: 12,
+  },
+  // content section
+  postTextContentContainer: {
+    paddingVertical: 10,
+  },
+  postText: {},
+  // footer section
+  footerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 6,
+  },
+  metaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  metaCountText: {
     fontSize: 12,
   },
 });

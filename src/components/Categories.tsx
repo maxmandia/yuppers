@@ -20,34 +20,36 @@ const Categories = () => {
   }
 
   return (
-    <ScrollView
-      horizontal={true}
-      showsHorizontalScrollIndicator={false}
-      style={styles.categoryContainer}
-      contentContainerStyle={{
-        flexDirection: 'row',
-        gap: 12,
-        paddingRight: 35,
-      }}
-    >
-      {categories.map((category, index) => (
-        <TouchableOpacity
-          onPress={() => handleCategoryPress(category)}
-          style={styles.categoryButton}
-          key={index}
-        >
-          <Text
-            style={
-              selectedCategory === category
-                ? styles.categoryTextSelected
-                : styles.categoryText
-            }
+    <View>
+      <ScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        style={styles.categoryContainer}
+        contentContainerStyle={{
+          flexDirection: 'row',
+          gap: 12,
+          paddingRight: 35,
+        }}
+      >
+        {categories.map((category, index) => (
+          <TouchableOpacity
+            onPress={() => handleCategoryPress(category)}
+            style={styles.categoryButton}
+            key={index}
           >
-            {category}
-          </Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+            <Text
+              style={
+                selectedCategory === category
+                  ? styles.categoryTextSelected
+                  : styles.categoryText
+              }
+            >
+              {category}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>
   );
 };
 
@@ -55,7 +57,7 @@ export default Categories;
 
 const styles = StyleSheet.create({
   categoryContainer: {
-    paddingHorizontal: '5%',
+    paddingHorizontal: '3%',
     paddingVertical: 10,
   },
   categoryButton: {
