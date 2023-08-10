@@ -26,12 +26,22 @@ interface Creator {
   yupScore: number;
 }
 
+interface attachments {
+  url: string;
+  title: string;
+  description: string;
+  images: string[];
+  videos: string[];
+  favicon: string;
+  _id: string;
+}
+
 interface Web3Preview {
   id: string;
   contentType: string;
   protocol: string;
   creator: Creator;
-  attachments: any[];
+  attachments: attachments[];
   content: string;
   urls: any[];
   linkPreview: any[];
