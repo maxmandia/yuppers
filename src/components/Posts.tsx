@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import React from 'react';
 import { Post } from '../interfaces/post';
+import moment from 'moment';
 
 interface PostsProps {
   posts: Post[];
@@ -33,11 +34,13 @@ const Posts = (props: PostsProps) => {
                 style={styles.protocolImage}
                 source={require('../assets/images/bluesky.png')}
               />
-              <Text style={styles.handle}>
+              <Text numberOfLines={1} style={styles.handle}>
                 @{item.web3CreatorProfile.handle}
               </Text>
               <View style={styles.dot} />
-              <Text style={styles.createdAt}>{item.createdAt}</Text>
+              <Text style={styles.createdAt}>
+                {moment(item.createdAt).fromNow()}
+              </Text>
             </View>
           </View>
         )}
@@ -55,16 +58,17 @@ const styles = StyleSheet.create({
   postHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 6,
   },
   profileImage: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     borderRadius: 30,
     backgroundColor: 'blue',
   },
   fullName: {
     fontWeight: '500',
+    fontSize: 12,
   },
   protocolImage: {
     width: 12,
@@ -75,6 +79,7 @@ const styles = StyleSheet.create({
   handle: {
     color: '#ADADAD',
     fontSize: 12,
+    maxWidth: 100,
   },
   dot: {
     height: 3,
