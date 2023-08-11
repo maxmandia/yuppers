@@ -18,7 +18,8 @@ const UserMedia = (props: UserMediaProps) => {
   if (
     item.web3Preview?.attachments?.length <= 0 ||
     item.web3Preview?.attachments[0]?.images.length <= 0 ||
-    item.web3Preview?.attachments[0]?.images[0] === ''
+    item.web3Preview?.attachments[0]?.images[0] === '' ||
+    item.web3Preview?.attachments[0]?.title !== ''
   ) {
     return null;
   }
