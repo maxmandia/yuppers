@@ -18,14 +18,14 @@ interface PostsProps {
   posts: Post[];
 }
 
-type Image = {
+type ImageType = {
   uri: string;
 };
 
 const Posts = (props: PostsProps) => {
   const { posts } = props;
   const [isPhotoVisible, setIsPhotoVisible] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<Image[]>([]);
+  const [selectedImage, setSelectedImage] = useState<ImageType[]>([]);
 
   if (!posts) {
     return null;
