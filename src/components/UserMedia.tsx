@@ -1,13 +1,19 @@
-import { StyleSheet, Text, Image } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, Image } from 'react-native';
 import React from 'react';
 import { Post } from '../interfaces/post';
 
+type ImageType = {
+  uri: string;
+};
+
 interface UserMediaProps {
   item: Post;
+  setSelectedImage: React.Dispatch<React.SetStateAction<ImageType[]>>;
+  setIsPhotoVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserMedia = (props: UserMediaProps) => {
-  const { item } = props;
+  const { item, setSelectedImage, setIsPhotoVisible } = props;
 
   if (
     item.web3Preview?.attachments?.length <= 0 ||
@@ -18,7 +24,16 @@ const UserMedia = (props: UserMediaProps) => {
   }
 
   return (
-    <>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        setSelectedImage([
+          {
+            uri: item.web3Preview?.attachments[0]?.images[0],
+          },
+        ]);
+        setIsPhotoVisible(true);
+      }}
+    >
       <Image
         style={styles.userMediaImage}
         resizeMode="cover"
@@ -26,7 +41,7 @@ const UserMedia = (props: UserMediaProps) => {
           uri: item.web3Preview?.attachments[0]?.images[0],
         }}
       />
-    </>
+    </TouchableWithoutFeedback>
   );
 };
 

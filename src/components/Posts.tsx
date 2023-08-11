@@ -6,19 +6,26 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Post } from '../interfaces/post';
 import moment from 'moment';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import UserMedia from './UserMedia';
 import UserLink from './UserLink';
+import ImageView from 'react-native-image-viewing';
 
 interface PostsProps {
   posts: Post[];
 }
 
+type Image = {
+  uri: string;
+};
+
 const Posts = (props: PostsProps) => {
   const { posts } = props;
+  const [isPhotoVisible, setIsPhotoVisible] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<Image[]>([]);
 
   if (!posts) {
     return null;
@@ -34,6 +41,12 @@ const Posts = (props: PostsProps) => {
         renderItem={({ item }) => {
           return (
             <View style={styles.postContainer}>
+              <ImageView
+                images={selectedImage}
+                imageIndex={0}
+                visible={isPhotoVisible}
+                onRequestClose={() => setIsPhotoVisible(false)}
+              />
               <View style={styles.postHeader}>
                 {item.web3CreatorProfile.avatar !== '' ? (
                   <Image
@@ -62,7 +75,11 @@ const Posts = (props: PostsProps) => {
               </View>
               <View style={styles.postTextContentContainer}>
                 <Text style={styles.postText}>{item.previewData.title}</Text>
-                <UserMedia item={item} />
+                <UserMedia
+                  setIsPhotoVisible={setIsPhotoVisible}
+                  setSelectedImage={setSelectedImage}
+                  item={item}
+                />
                 <UserLink item={item} />
               </View>
               <View style={styles.footerContainer}>

@@ -6,6 +6,7 @@ import Categories from './src/components/Categories';
 import Posts from './src/components/Posts';
 import { Post } from './src/interfaces/post';
 import { postWithLink } from './src/data/post-with-link';
+
 export default function App() {
   const [posts, setPosts] = useState<Post[]>([]);
 
