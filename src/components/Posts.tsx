@@ -27,6 +27,27 @@ const Posts = (props: PostsProps) => {
   const [isPhotoVisible, setIsPhotoVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<ImageType[]>([]);
 
+  function renderProtocolImage(protocol: string) {
+    switch (protocol) {
+      case 'bsky':
+        return (
+          <Image
+            style={styles.protocolImage}
+            source={require('../assets/images/bluesky.png')}
+          />
+        );
+      case 'farcaster':
+        return (
+          <Image
+            style={styles.protocolImage}
+            source={require('../assets/images/farcaster.png')}
+          />
+        );
+      default:
+        return null;
+    }
+  }
+
   if (!posts) {
     return null;
   }
@@ -39,6 +60,7 @@ const Posts = (props: PostsProps) => {
           paddingBottom: 200,
         }}
         renderItem={({ item }) => {
+          console.log(item.web3Preview.protocol);
           return (
             <View style={styles.postContainer}>
               <ImageView
@@ -61,10 +83,7 @@ const Posts = (props: PostsProps) => {
                 <Text numberOfLines={1} style={styles.fullName}>
                   {item.web3Preview.creator.fullname}
                 </Text>
-                <Image
-                  style={styles.protocolImage}
-                  source={require('../assets/images/bluesky.png')}
-                />
+                {renderProtocolImage(item.web3Preview.protocol)}
                 <Text numberOfLines={1} style={styles.handle}>
                   @{item.web3CreatorProfile.handle}
                 </Text>
