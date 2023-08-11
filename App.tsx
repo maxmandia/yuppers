@@ -5,16 +5,17 @@ import Navbar from './src/components/Navbar';
 import Categories from './src/components/Categories';
 import Posts from './src/components/Posts';
 import { Post } from './src/interfaces/post';
+import { postWithLink } from './src/data/post-with-link';
 export default function App() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   async function fetchData() {
     try {
-      const req = await fetch('https://api.yup.io/feed/dailyhits');
+      const req = await fetch('https://api.yup.io/feed/dailyhits?start=1');
       const data = await req.json();
 
       console.log(data);
-      setPosts(data);
+      setPosts([...data, postWithLink]);
     } catch (error) {
       console.log(error);
     }
