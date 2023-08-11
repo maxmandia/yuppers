@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 6,
+    paddingHorizontal: 4,
   },
   metaContainer: {
     flexDirection: 'row',
