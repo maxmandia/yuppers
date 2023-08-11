@@ -26,11 +26,12 @@ const UserLink = (props: UserLinkProps) => {
           uri: item.web3Preview.attachments[0].images[0],
         }}
       />
+
       <View style={styles.linkFooterContainer}>
         <Text style={styles.linkTitle}>
           {item.web3Preview.attachments[0].title}
         </Text>
-        <Text style={styles.linkDescription}>
+        <Text numberOfLines={2} style={styles.linkDescription}>
           {item.web3Preview.attachments[0].description}
         </Text>
         <View style={styles.linkUrlContainer}>
@@ -42,7 +43,7 @@ const UserLink = (props: UserLinkProps) => {
               }}
             />
           )}
-          <Text style={styles.linkUrl}>
+          <Text numberOfLines={1} style={styles.linkUrl}>
             {item.web3Preview.attachments[0].url}
           </Text>
         </View>
@@ -57,18 +58,25 @@ const styles = StyleSheet.create({
   linkContainer: {
     marginTop: 20,
     marginBottom: 10,
-    borderColor: 'grey',
-    borderWidth: 0.5,
-    borderRadius: 9,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   linkImage: {
-    width: '100%',
-    height: 100,
+    width: '103%',
+    height: 150,
+    borderTopLeftRadius: 18,
+    borderTopRightRadius: 18,
+    borderColor: 'grey',
   },
   linkFooterContainer: {
-    padding: 8,
+    padding: 12,
     flexDirection: 'column',
     gap: 5,
+    borderTopColor: 'white',
+    borderColor: 'grey',
+    borderWidth: 0.2,
+    borderBottomEndRadius: 12,
+    borderBottomStartRadius: 12,
   },
   linkTitle: {
     fontWeight: '600',
