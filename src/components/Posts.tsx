@@ -93,7 +93,7 @@ const Posts = (props: PostsProps) => {
                 </Text>
                 {renderProtocolImage(item?.web3Preview?.protocol)}
                 <Text numberOfLines={1} style={styles.handle}>
-                  @{item.web3CreatorProfile.handle}
+                  @{item?.web3CreatorProfile?.handle ?? 'n/a'}
                 </Text>
                 <View style={styles.dot} />
                 <Text style={styles.createdAt}>
@@ -101,7 +101,7 @@ const Posts = (props: PostsProps) => {
                 </Text>
               </View>
               <View style={styles.postTextContentContainer}>
-                <Text style={styles.postText}>{item.previewData.title}</Text>
+                <Text style={styles.postText}>{item?.previewData?.title}</Text>
                 <UserMedia
                   setIsPhotoVisible={setIsPhotoVisible}
                   setSelectedImage={setSelectedImage}
@@ -113,7 +113,7 @@ const Posts = (props: PostsProps) => {
                 <TouchableOpacity style={styles.metaContainer}>
                   <Ionicons name="heart-outline" size={16} color="#ADADAD" />
                   <Text style={styles.metaCountText}>
-                    {item.web3Preview.meta.likeCount}
+                    {item?.web3Preview?.meta?.likeCount}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.metaContainer}>
@@ -123,13 +123,13 @@ const Posts = (props: PostsProps) => {
                     color="#ADADAD"
                   />
                   <Text style={styles.metaCountText}>
-                    {item.web3Preview.meta.replyCount}
+                    {item?.web3Preview?.meta?.replyCount}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.metaContainer}>
                   <Ionicons name="repeat-outline" size={16} color="#ADADAD" />
                   <Text style={styles.metaCountText}>
-                    {item.web3Preview.meta.replyCount}
+                    {item?.web3Preview?.meta?.replyCount}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.metaContainer}>
