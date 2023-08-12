@@ -16,6 +16,7 @@ import ImageView from 'react-native-image-viewing';
 
 interface PostsProps {
   posts: Post[];
+  fetchData: () => void;
 }
 
 type ImageType = {
@@ -23,11 +24,13 @@ type ImageType = {
 };
 
 const Posts = (props: PostsProps) => {
-  const { posts } = props;
+  const { posts, fetchData } = props;
   const [isPhotoVisible, setIsPhotoVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<ImageType[]>([]);
 
-  function renderProtocolImage(protocol: string) {
+  function renderProtocolImage(protocol: string | undefined) {
+    if (!protocol) return null;
+
     switch (protocol) {
       case 'bsky':
         return (
@@ -56,11 +59,15 @@ const Posts = (props: PostsProps) => {
     <View style={styles.postsContainer}>
       <FlatList
         data={posts}
+        onEndReached={({ distanceFromEnd }) => {
+          if (distanceFromEnd <= 0) return;
+          fetchData();
+        }}
+        onEndReachedThreshold={0.75}
         contentContainerStyle={{
           paddingBottom: 200,
         }}
         renderItem={({ item }) => {
-          console.log(item.web3Preview.protocol);
           return (
             <View style={styles.postContainer}>
               <ImageView
@@ -70,7 +77,8 @@ const Posts = (props: PostsProps) => {
                 onRequestClose={() => setIsPhotoVisible(false)}
               />
               <View style={styles.postHeader}>
-                {item.web3CreatorProfile.avatar !== '' ? (
+                {item.web3CreatorProfile &&
+                item.web3CreatorProfile.avatar !== '' ? (
                   <Image
                     style={styles.profileImage}
                     source={{
@@ -81,9 +89,9 @@ const Posts = (props: PostsProps) => {
                   <View style={styles.profileImage} />
                 )}
                 <Text numberOfLines={1} style={styles.fullName}>
-                  {item.web3Preview.creator.fullname}
+                  {item.web3Preview?.creator?.fullname ?? 'n/a'}
                 </Text>
-                {renderProtocolImage(item.web3Preview.protocol)}
+                {renderProtocolImage(item?.web3Preview?.protocol)}
                 <Text numberOfLines={1} style={styles.handle}>
                   @{item.web3CreatorProfile.handle}
                 </Text>
